@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>Sobre o Autor</h1>
+{% endblock %}
+
+{% block main %}
+    <section class="autor">    
+        <div class="bio-container">
+            <img class="perfil" src="{{ url_for('static', filename='imgs/autor.jpg') }}" alt="Foto de Caio Oliveira" />
+
+            <div class="texto">
+                <h2>Caio Oliveira</h2>
+                <p>
+                    <strong>Caio Oliveira</strong> é desenvolvedor de software, escritor e entusiasta da educação tecnológica...
+                </p>
+                <p>
+                    Formado em Sistemas de Informação pela Universidade Federal de Minas Gerais (UFMG), iniciou sua carreira como estagiário em uma startup local, onde enfrentou os desafios típicos de um desenvolvedor júnior — e aprendeu a documentá-los com bom humor e autenticidade.
+                </p>
+                <p>
+                    Além de trabalhar como desenvolvedor full stack, Caio é conhecido por sua habilidade em transformar experiências do cotidiano em reflexões valiosas sobre carreira, aprendizado contínuo e o mundo da tecnologia. Foi essa abordagem honesta que o levou a escrever seu primeiro livro, <em>Diário de um Desenvolvedor Júnior</em>, hoje leitura obrigatória para quem está entrando na área de programação.
+                </p>
+                <p>
+                    Ao longo dos anos, Caio publicou outras obras de destaque, como <em>O Código da Persistência</em>, <em>O Algoritmo da Vida</em> e <em>Do Zero a Full Stack</em>, todas marcadas por uma escrita acessível e profundamente conectada com a realidade dos profissionais de tecnologia no Brasil.
+                </p>
+                <p>
+                    Atualmente, divide seu tempo entre desenvolvimento de software, palestras em eventos de tecnologia e mentorias para jovens desenvolvedores. Quando não está codando ou escrevendo, gosta de tocar violão, ler biografias de empreendedores e caminhar por trilhas nas montanhas de Minas Gerais.
+                </p>
+            </div>    
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

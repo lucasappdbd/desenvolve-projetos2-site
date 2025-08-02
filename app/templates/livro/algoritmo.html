@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>O Algoritmo da Vida</h1>
+    <p>Por Caio Oliveira</p>
+{% endblock %}
+
+{% block main %}
+<div id="book-details">
+  <img src="{{ url_for('static', filename='imgs/capa-algoritmo.jpg') }}" alt="Capa do livro O Algoritmo da Vida">
+
+  <div class="book-info">
+    <section>
+      <h2>Sinopse</h2>
+      <p>Um livro que conecta lógica de programação com a vida real, mostrando como os princípios dos algoritmos podem ser aplicados em decisões, hábitos e resolução de problemas cotidianos.</p>
+
+      <h2>Temas Abordados</h2>
+      <ul>
+          <li>Raciocínio lógico no dia a dia</li>
+          <li>Tomada de decisões estruturada</li>
+          <li>Reflexões sobre automação e comportamento</li>
+          <li>Exemplos de situações práticas</li>
+      </ul>
+
+      <h2>Onde Comprar</h2>
+      <ul>
+          <li><a href="https://www.amazon.com.br" target="_blank">Amazon</a></li>
+          <li><a href="https://www.leitura.com.br" target="_blank">Livraria Leitura</a></li>
+          <li><a href="https://www.estantevirtual.com.br" target="_blank">Estante Virtual</a></li>
+          <li><a href="https://www.livrariascuritiba.com.br" target="_blank">Livraria Curitiba</a></li>
+      </ul>
+    </section>
+  </div>
+</div>
+{% endblock %}

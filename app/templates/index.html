@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <div class="user-greeting">
+    <h1>        
+        {% if current_user.is_authenticated %}
+        Olá, {{ current_user.nome }}! Seja bem-vindo(a)!
+        {% else %}
+        Olá, visitante! Seja bem-vindo(a)!
+        {% endif %}        
+    </h1>
+    <p>Sua opinião é muito importante!</p>
+    </div>
+    <p>Você pode enviar seus comentários através da página de Avaliações.</p>
+{% endblock %}
+
+{% block main %}
+<section class="carrossel-livros">
+    <h2>Conheça os livros lançados por <em>Caio Oliveira</em></h2>
+    <div class="carrossel-container">
+        <div class="carrossel-track">
+            <a href="{{ url_for('views.livro_diario') }}">
+                <img src="{{ url_for('static', filename='imgs/capa-diario.jpg') }}" alt="Diário de um Desenvolvedor Júnior">
+            </a>
+            <a href="{{ url_for('views.livro_persistencia') }}">
+                <img src="{{ url_for('static', filename='imgs/capa-persistencia.jpg') }}" alt="O Código da Persistência">
+            </a>
+            <a href="{{ url_for('views.livro_algoritmo') }}">
+                <img src="{{ url_for('static', filename='imgs/capa-algoritmo.jpg') }}" alt="O Algoritmo da Vida">
+            </a>
+            <a href="{{ url_for('views.livro_fullstack') }}">
+                <img src="{{ url_for('static', filename='imgs/capa-full-stack.jpg') }}" alt="Do Zero a Full Stack">
+            </a>
+        </div>
+    </div>
+    <div class="carrossel-dots"></div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}

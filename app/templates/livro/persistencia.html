@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>O Código da Persistência</h1>
+    <p>Por Caio Oliveira</p>
+{% endblock %}
+
+{% block main %}
+<div id="book-details">
+  <img src="{{ url_for('static', filename='imgs/capa-persistencia.jpg') }}" alt="Capa do livro O Código da Persistência">
+
+  <div class="book-info">
+
+    <section>
+      <h2>Sinopse</h2>
+      <p>Um guia motivacional para desenvolvedores que enfrentam bloqueios criativos, erros recorrentes ou a frustração da rotina. Este livro mostra como a persistência é uma das chaves do sucesso na área de tecnologia.</p>
+
+      <h2>Temas Abordados</h2>
+      <ul>
+          <li>Resiliência no dia a dia</li>
+          <li>Motivação e mindset de crescimento</li>
+          <li>Superação de obstáculos técnicos</li>
+          <li>Histórias inspiradoras do autor</li>
+      </ul>
+
+      <h2>Onde Comprar</h2>
+      <ul>
+          <li><a href="https://www.amazon.com.br" target="_blank">Amazon</a></li>
+          <li><a href="https://www.leitura.com.br" target="_blank">Livraria Leitura</a></li>
+          <li><a href="https://www.estantevirtual.com.br" target="_blank">Estante Virtual</a></li>
+          <li><a href="https://www.livrariascuritiba.com.br" target="_blank">Livraria Curitiba</a></li>
+      </ul>
+    </section>
+  </div>
+</div>
+{% endblock %}

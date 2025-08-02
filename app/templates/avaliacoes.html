@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>Deixe sua Avaliação</h1>
+    <p>Compartilhe sua opinião sobre os livros de Caio Oliveira</p>
+{% endblock %}
+
+{% block main %}
+<div class="avaliacoes-livros">
+
+  {% if not current_user.is_authenticated %}
+    <div class="flash-messages">
+      <p class="warning">
+        Faça <a href="{{ url_for('views.login') }}">login</a> para enviar uma avaliação.
+      </p>
+    </div>    
+  {% endif %}
+
+  <section class="avaliar-livro">
+    <form method="POST" action="#" id="form-avaliacao">
+      
+      <h2>Escolha o livro que deseja avaliar</h2>
+      <div class="livros-grid">
+        <img src="{{ url_for('static', filename='imgs/capa-diario.jpg') }}" alt="Diário de um Desenvolvedor Júnior" data-livro="diario">
+        <img src="{{ url_for('static', filename='imgs/capa-persistencia.jpg') }}" alt="O Código da Persistência" data-livro="persistencia">
+        <img src="{{ url_for('static', filename='imgs/capa-algoritmo.jpg') }}" alt="O Algoritmo da Vida" data-livro="algoritmo">
+        <img src="{{ url_for('static', filename='imgs/capa-full-stack.jpg') }}" alt="Do Zero a Full Stack" data-livro="fullstack">
+      </div>
+
+      <label for="livro">Selecione via lista (opcional)</label><br>
+      <select id="livro" name="livro" required>
+        <option value="">Selecione um livro</option>
+        <option value="diario">Diário de um Desenvolvedor Júnior</option>
+        <option value="persistencia">O Código da Persistência</option>
+        <option value="algoritmo">O Algoritmo da Vida</option>
+        <option value="fullstack">Do Zero a Full Stack</option>
+      </select>
+
+      <br><br>
+
+      <h2>Escolha a nota</h2>
+      <div class="estrelas-wrapper">
+        <div class="estrelas" id="estrelas">
+          <span class="estrela" data-valor="1">&#9733;</span>
+          <span class="estrela" data-valor="2">&#9733;</span>
+          <span class="estrela" data-valor="3">&#9733;</span>
+          <span class="estrela" data-valor="4">&#9733;</span>
+          <span class="estrela" data-valor="5">&#9733;</span>
+        </div>
+      </div>
+      
+
+      <label for="nota">Nota via lista (opcional)</label><br>
+      <select id="nota" name="nota" required>
+        <option value="">Escolha uma nota</option>
+        <option value="1">1 - Muito ruim</option>
+        <option value="2">2 - Ruim</option>
+        <option value="3">3 - Regular</option>
+        <option value="4">4 - Bom</option>
+        <option value="5">5 - Excelente</option>
+      </select>
+
+      <br><br>
+
+      <label for="comentario">Sua avaliação:</label><br>
+      <textarea id="comentario" name="comentario" rows="6" placeholder="Compartilhe o que achou do livro..." required></textarea>
+
+      <br><br>
+
+      <div class="botao-enviar">
+      <button type="submit">Enviar Avaliação</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="exibir-avaliacoes">
+    <h2>Últimas avaliações publicadas</h2>
+
+    <p><strong>Nota média dos livros:</strong> {{ media }} / 5</p>
+
+    <ul>
+
+      {% for avaliacao in avaliacoes %}
+        <li>
+          <strong>{{ avaliacao.author.nome }} {{ avaliacao.author.sobrenome }}</strong> avaliou em {{ (avaliacao.created_at - timedelta(hours=3)).strftime('%d/%m/%Y') }} às {{ (avaliacao.created_at - timedelta(hours=3)).strftime('%H:%M') }}
+
+          :<br>
+          {% for i in range(1, 6) %}
+            {% if i <= avaliacao.rating %}
+              <span style="color: gold;">&#9733;</span>
+            {% else %}
+              <span style="color: #ccc;">&#9733;</span>
+            {% endif %}
+          {% endfor %}
+          - <em>{{ avaliacao.book.title }}</em><br>
+          "{{ avaliacao.comment }}"
+
+          {% if current_user.is_authenticated and avaliacao.user_id == current_user.id %}
+            <br>            
+            <button class="btn-editar" data-id="{{ avaliacao.id }}" data-nota="{{ avaliacao.rating }}" data-comentario="{{ avaliacao.comment|escape }}">
+              Editar avaliação
+            </button>
+            <button class="btn-excluir" data-id="{{ avaliacao.id }}">
+              Excluir
+            </button>            
+            
+          {% endif %}
+        </li>
+      {% endfor %}   
+    </ul>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/avaliacoes.js') }}"></script>
+{% endblock %}
+
+{% block modals %}
+<div id="modal-edicao" class="modal hidden">
+  <div class="modal-content">
+    <span id="fechar-modal" class="fechar">&times;</span>
+    <h2>Editar Avaliação</h2>
+    <form id="form-edicao" method="POST" action="{{ url_for('views.editar_avaliacao_modal') }}">
+
+      <input type="hidden" name="avaliacao_id" id="avaliacao-id">
+      
+      <label for="nota-edicao">Nota:</label>
+      <select name="nota" id="nota-edicao" required>
+        <option value="1">1 - Muito ruim</option>
+        <option value="2">2 - Ruim</option>
+        <option value="3">3 - Regular</option>
+        <option value="4">4 - Bom</option>
+        <option value="5">5 - Excelente</option>
+      </select>
+      
+      <label for="comentario-edicao">Comentário:</label>
+      <textarea name="comentario" id="comentario-edicao" rows="5" required></textarea>
+
+      <div style="display: flex; justify-content: space-evenly; gap: 10px;">
+        <button type="submit">Salvar</button>
+        <button type="button" class="btn-cancelar" id="cancelar-edicao">Cancelar</button>          
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="modal-excluir" class="modal hidden">
+  <div class="modal-content">
+    <h2>Confirmar exclusão</h2>
+    <p>Tem certeza que deseja excluir esta avaliação?</p>
+    <p>Esta ação não poderá ser desfeita!</p>
+    <div style="display: flex; justify-content: space-evenly; gap: 10px;">
+      <button type="submit" id="confirmar-exclusao">Sim, EXCLUIR</button>
+      <button type="button" class="btn-cancelar" id="cancelar-exclusao">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<form id="form-excluir" method="POST" style="display: none;">
+</form>
+{% endblock %}

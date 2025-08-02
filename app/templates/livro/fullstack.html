@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>Do Zero a Full Stack</h1>
+    <p>Por Caio Oliveira</p>
+{% endblock %}
+
+{% block main %}
+<div id="book-details">
+  <img src="{{ url_for('static', filename='imgs/capa-full-stack.jpg') }}" alt="Capa do livro Do Zero a Full Stack">
+
+  <div class="book-info">
+    <section>
+      <h2>Sinopse</h2>
+      <p>Uma jornada prática e pessoal sobre como sair do nível iniciante até construir aplicações completas como desenvolvedor full stack. Caio compartilha sua trajetória com dicas diretas, estratégias de aprendizado e conselhos reais.</p>
+
+      <h2>Temas Abordados</h2>
+      <ul>
+          <li>Fundamentos de front-end e back-end</li>
+          <li>Planejamento de carreira</li>
+          <li>Construção de portfólio</li>
+          <li>Dicas de mercado e entrevistas</li>
+      </ul>
+
+      <h2>Onde Comprar</h2>
+      <ul>
+          <li><a href="https://www.amazon.com.br" target="_blank">Amazon</a></li>
+          <li><a href="https://www.leitura.com.br" target="_blank">Livraria Leitura</a></li>
+          <li><a href="https://www.estantevirtual.com.br" target="_blank">Estante Virtual</a></li>
+          <li><a href="https://www.livrariascuritiba.com.br" target="_blank">Livraria Curitiba</a></li>
+      </ul>
+    </section>
+  </div>
+</div>
+{% endblock %}

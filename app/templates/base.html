@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% if title %}
+                {{ title }} - Caio Oliveira
+            {% else %}
+                Caio Oliveira
+            {% endif %}
+        </title>        
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+
+    <body>
+        <div class="topbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="{{ url_for('views.index') }}">caio-oliveira.com</a>
+                </div>
+                <nav class="nav-links" id="nav-links">
+                    <a href="{{ url_for('views.index') }}">Home</a>
+                    <a href="{{ url_for('views.sobre_autor') }}">Sobre o Autor</a>
+                    <a href="{{ url_for('views.avaliacoes') }}">Avaliações</a>
+                
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('views.perfil') }}">Meu Perfil</a>
+                    <a href="{{ url_for('views.logout') }}">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('views.login') }}">Login</a>
+                    <a href="{{ url_for('views.cadastro') }}">Cadastre-se</a>
+                    {% endif %}
+                </nav>
+                
+                <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">
+                    &#9776;
+                </button>
+            </div>
+        </div>
+
+        <header>
+            {% block header %}
+            <!-- O cabeçalho será inserido aqui -->
+            {% endblock %}
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <main>
+            {% block main %}
+            <!-- O conteúdo principal será inserido aqui -->
+            {% endblock %}
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Caio Oliveira - Desenvolvido por <a href="https://github.com/lucasappdbd">PDBD109</a></p>
+        </footer>
+
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+        {% block scripts %}
+        <!-- Os scripts específicos de cada página serão inseridos aqui-->
+        {% endblock %}
+
+        {% block modals %}
+        <!-- Os modais serão inseridos aqui-->
+        {% endblock %}
+
+    </body>
+</html>
