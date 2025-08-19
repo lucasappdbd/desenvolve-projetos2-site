@@ -88,4 +88,12 @@ Siga os passos abaixo para configurar e executar o ambiente localmente.
    ```
    http://127.0.0.1:5000/
    ```
+
+8. **Testes Unitários (opcional)**
+
+   Com a aplicação fechada, execute o comando:
+
+   ```bash
+   pytest tests/
+   ```
 ---
